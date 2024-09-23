@@ -1,41 +1,76 @@
-import java.io.EOFException;
-private class Aluno{
+public class Aluno{
 
     // Atributos
-    String nome;
-    int ra;
-    double notaFinal;
-    APROVACAO status;
+    private String nome;
+    private int ra;
+    private double notaFinal;
+    private APROVACAO status;
     
-    // CONSTRUTORES
-    // Vazio
+    // CONSTURTORES
+    // Construtor vazio
     public Aluno(){
     }
 
-    // Completo
-    public Aluno(String nome, int ra, double presenca, double nota1, double nota2, double nota3, double nota4){
+    // Construtor padrão
+    public Aluno(String nome, int ra){
         this.nome = nome;
         this.ra = ra;
-        this.presenca = presenca/100;
-        this.notaFinal = (nota1*0.15) + (nota2*0.3) + (nota3*0.10) + (nota4*0.45);
-    }
-
-    // Duas notas
-    private void notas(MODALIDADE modalidade, double presenca, double nota1, double nota2){
-        this.notaFinal = (nota1+nota2)/2;
-    }
-
-    // Três notas
-    public Aluno(String nome, int ra, double presenca, double nota1, double nota2, double nota3){
-        this.notaFinal = (nota1+nota2*2+nota3*4) /7; 
     }
 
     // MÉTODOS
+    // Duas notas
+    public void disciplina(MODALIDADE modalidade, double presenca, double nota1, double nota2){
+        APROVACAO status = null;
+        this.notaFinal = (nota1+nota2)/2;
+
+        if(modalidade == modalidade.PRESENCIAL && presenca < 75){
+            status = status.REPROVADO;
+
+        }else if(modalidade == modalidade.PRESENCIAL && this.notaFinal < 5){
+            status = status.REPROVADO;
+
+        }else{
+            status = status.APROVADO;
+        }
+    }
+
+    // Três notas
+    public void disciplina(MODALIDADE modalidade, double presenca, double nota1, double nota2, double nota3){
+        APROVACAO status = null;
+        this.notaFinal = (nota1+nota2*2+nota3*4) /7;
+
+        if(modalidade == modalidade.PRESENCIAL && presenca < 75){
+            status = status.REPROVADO;
+
+        }else if(modalidade == modalidade.PRESENCIAL && this.notaFinal < 5){
+            status = status.REPROVADO;
+
+        }else{
+            status = status.APROVADO;
+        } 
+    }
+
+    // Todas as notas
+    public void disciplina(MODALIDADE modalidade, double presenca, double nota1, double nota2, double nota3, double nota4){
+        APROVACAO status = null;
+        this.notaFinal = (nota1*0.15) + (nota2*0.3) + (nota3*0.10) + (nota4*0.45);
+
+        if(modalidade == modalidade.PRESENCIAL && presenca < 75){
+            status = status.REPROVADO;
+
+        }else if(modalidade == modalidade.PRESENCIAL && this.notaFinal < 5){
+            status = status.REPROVADO;
+
+        }else{
+            status = status.APROVADO;
+        }
+    }
+
     // Função ficha
     public String ficha(){
         String ficha = "\nNome: "+ nome +"\nRA: "+ String.valueOf(ra) +"\nNota Final: "+ String.valueOf(notaFinal);
         return ficha; 
-    } 
+    }
 
     // GETTERS
     // Getter nome
