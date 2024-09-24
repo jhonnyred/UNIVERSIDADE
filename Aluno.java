@@ -18,20 +18,25 @@ public class Aluno{
     }
 
     // MÉTODOS
+    // Aprovação
+    private APROVACAO aprovacao(MODALIDADE modalidade, double presenca){
+        APROVACAO aprovacao = null;
+        if(modalidade == modalidade.PRESENCIAL && presenca < 75){
+            return aprovacao.REPROVADO;
+
+        }else if(modalidade == modalidade.PRESENCIAL && this.notaFinal < 5){
+            return aprovacao.REPROVADO;
+
+        }else{
+            return aprovacao.APROVADO;
+        }
+    }
     // Duas notas
     public void disciplina(MODALIDADE modalidade, double presenca, double nota1, double nota2){
         APROVACAO status = null;
         this.notaFinal = (nota1+nota2)/2;
 
-        if(modalidade == modalidade.PRESENCIAL && presenca < 75){
-            status = status.REPROVADO;
-
-        }else if(modalidade == modalidade.PRESENCIAL && this.notaFinal < 5){
-            status = status.REPROVADO;
-
-        }else{
-            status = status.APROVADO;
-        }
+        status = aprovacao(modalidade, presenca);
     }
 
     // Três notas
@@ -39,15 +44,7 @@ public class Aluno{
         APROVACAO status = null;
         this.notaFinal = (nota1+nota2*2+nota3*4) /7;
 
-        if(modalidade == modalidade.PRESENCIAL && presenca < 75){
-            status = status.REPROVADO;
-
-        }else if(modalidade == modalidade.PRESENCIAL && this.notaFinal < 5){
-            status = status.REPROVADO;
-
-        }else{
-            status = status.APROVADO;
-        } 
+        status = aprovacao(modalidade, presenca);
     }
 
     // Todas as notas
@@ -55,15 +52,7 @@ public class Aluno{
         APROVACAO status = null;
         this.notaFinal = (nota1*0.15) + (nota2*0.3) + (nota3*0.10) + (nota4*0.45);
 
-        if(modalidade == modalidade.PRESENCIAL && presenca < 75){
-            status = status.REPROVADO;
-
-        }else if(modalidade == modalidade.PRESENCIAL && this.notaFinal < 5){
-            status = status.REPROVADO;
-
-        }else{
-            status = status.APROVADO;
-        }
+        status = aprovacao(modalidade, presenca);
     }
 
     // Função ficha
